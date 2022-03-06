@@ -1,88 +1,110 @@
 ﻿using System;
+using ConsoleAppProject.Helpers;
 
 namespace ConsoleAppProject.App01
 {
     /// <summary>
-    /// Please describe the main features of this App
+    /// This App will allow the user to enter a measurement and it will convert the value to a different measurement
     /// </summary>
     /// <author>
-    /// Alastair Fox version 0.1
+    /// Alastair Fox version 1.4
     /// </author>
     public class DistanceConverter
     {
         public const int FEET_IN_MILES = 5280;
+        public const double METERS_IN_MILES = 1609.34;
+        public const double FEET_IN_METERS = 3.28084;
 
-        private double fromDistance;
-        private double toDistance;
+        public const string FEET = "Feet";
+        public const string METERS = "Meters";
+        public const string MILES = "Miles";
 
-        private double fromUnit;
-        private double toUnit;
+        public double fromDistance { get; set; }
+        public double toDistance { get; set; }
+
+        public string fromUnit { get; set; }
+        public string toUnit { get; set; }
 
         /// <summary>
-        /// This method will output a heading, ask for the
-        /// input for miles, calculate and output the same
-        /// distance in feet.
+        /// This method contains the calculations required to convert between miles, feet and meters
+        /// </summary>
+        private void CalculateDistance()
+        {
+            if (fromUnit == MILES && toUnit == FEET)
+            {
+                toDistance = fromDistance * FEET_IN_MILES;
+            }
+            else if (fromUnit == FEET && toUnit == MILES)
+            {
+                toDistance = fromDistance / FEET_IN_MILES;
+            }
+            else if (fromUnit == METERS && toUnit == MILES)
+            {
+                toDistance = fromDistance / METERS_IN_MILES;
+            }
+            else if (fromUnit == MILES && toUnit == METERS)
+            {
+                toDistance = fromDistance * METERS_IN_MILES;
+            }
+            else if (fromUnit == METERS && toUnit == FEET)
+            {
+                toDistance = fromDistance * FEET_IN_METERS;
+            }
+            else if (fromUnit == FEET && toUnit == METERS)
+            {
+                toDistance = fromDistance / FEET_IN_METERS;
+            }
+        }
+
+        /// <summary>
+        /// This method displays text asking the user to input the two units of measurements 
+        /// </summary>
+        public void ConvertDistance()
+        {
+            string[] choices = new string[]
+            {
+                FEET, METERS, MILES
+            };
+
+            Console.WriteLine($"\nSelect the distance unit you wish to convert from >\n ");
+            int choice = ConsoleHelper.SelectChoice(choices);
+            fromUnit = choices[choice - 1];
+            Console.WriteLine($"Selected {fromUnit} ");
+
+            Console.WriteLine($"\nSelect the distance unit you wish to convert to >\n ");
+            choice = ConsoleHelper.SelectChoice(choices);
+            toUnit = choices[choice - 1];
+            Console.WriteLine($"\nSelected {toUnit} \n");
+
+            fromDistance = ConsoleHelper.InputNumber($"\nEnter the distance in {fromUnit} >\n ");
+
+            ConsoleHelper.OutputTitle($"\nConverting {fromUnit} to {toUnit} \n");
+
+            CalculateDistance();
+
+            OutputDistance();
+        }
+
+        /// <summary>
+        /// This method will run the program and output text
         /// </summary>
         public void Run()
         {
-            OutputHeading();
-            SelectUnit();
-            fromDistance = InputDistance($"Please enter the distance in {fromDistance} > !");
-            //CalculateFeet();
-            OutputDistance();
-        }
-        private string SelectUnit()
-        {
-            Console.WriteLine("Please select your unit\n");
-            Console.WriteLine("1. Miles");
-            Console.WriteLine("2. Feet");
-            Console.WriteLine("3. Metres");
-
-            string choice = Console.ReadLine();
-
-            if (choice == "1")
+            bool repeat = true;
+            while (repeat)
             {
-                return "Miles";
+                ConsoleHelper.OutputHeading("Distance Converter");
+                ConvertDistance();
             }
-            else if (choice == "2") 
-            {
-                return "Feet";
-            }
-            else if (choice == "3") 
-            {
-                return "Metres";
-            }
-            else return "NULL";
         }
 
-        private static void OutputHeading()
-        {
-            Console.ForegroundColor = ConsoleColor.Green;
-
-            Console.WriteLine();
-            Console.WriteLine(" ========================");
-            Console.WriteLine("    Distance Converter   ");
-            Console.WriteLine("          by Al          ");
-            Console.WriteLine(" ========================");
-            Console.WriteLine();
-        }
-
+        /// <summary>
+        /// This method outputs a result of the distance that has been converted
+        /// </summary>
         private void OutputDistance()
         {
-            Console.WriteLine($" {fromDistance} {fromUnit} = {toDistance} {toUnit}!");
-        }
-
-        private void CalculateFeet()
-        {
-            //feet = miles * FEET_IN_MILES;
-        }
-
-
-        private double InputDistance(string prompt)
-        {
-            Console.WriteLine(prompt);
-            string number = Console.ReadLine();
-            return Convert.ToDouble(number);
+            Console.WriteLine($"\n {fromDistance} {fromUnit} =" +
+                $" {toDistance} {toUnit}\n");
         }
     }
 }
