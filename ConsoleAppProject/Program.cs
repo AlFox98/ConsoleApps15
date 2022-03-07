@@ -41,7 +41,7 @@ namespace ConsoleAppProject
             }
             else if (choice == 2)
             {
-                BMI app02 = new BMI();
+                BMI_Calculator app02 = new BMI_Calculator();
                 app02.Run();
             }
 

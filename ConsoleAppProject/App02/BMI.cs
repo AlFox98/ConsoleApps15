@@ -167,6 +167,9 @@ namespace ConsoleAppProject.App02
             Console.WriteLine($"Your BMI status is {Status}");
 
             Console.WriteLine("23.0 or more are at increased risk " + "27.5 or more are at high risk");
+
+            Console.WriteLine("If you are Black, Asian or other minority " +
+                                "\nethnic groups, you have a higher risk");
         }
     }
 }
