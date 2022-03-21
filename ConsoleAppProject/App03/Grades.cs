@@ -8,9 +8,13 @@ namespace ConsoleAppProject.App03
     /// Grade C is Lower Second  : 50 - 59
     /// Grade D is Third Class   : 40 - 49
     /// Grade F is Fail          :  0 - 39
+    /// X is an invalid grade
     /// </summary>
     public enum Grades
     {
+        [Display(Name = "Invalid")]
+        [Description("Invalid Grade")]
+        X,
         [Display(Name = "Fail")]
         [Description("Referred")]
         F,
