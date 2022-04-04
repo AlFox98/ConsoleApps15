@@ -38,7 +38,6 @@ namespace ConsoleAppProject.App04
             while (repeat)
             {
                 ConsoleHelper.OutputHeading("App04 Social Network", "Alastair Fox");
-                repeat = ConsoleHelper.Repeat();
             }
 
 
