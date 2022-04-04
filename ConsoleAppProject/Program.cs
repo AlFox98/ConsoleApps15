@@ -30,6 +30,7 @@ namespace ConsoleAppProject
                 "Distance Converter",
                 "BMI Calculator",
                 "Students Grades"
+                "Social Network"
           };
 
             ConsoleHelper.OutputTitle(" Please select the App you would like to use >   ");
@@ -50,7 +51,11 @@ namespace ConsoleAppProject
                 StudentGrades app03 = new StudentGrades();
                 app03.Run();
             }
-
+            else if (choice == 4)
+            {
+                NewsApp app04 = new NewsApp();
+                app04.Run();
+            }
         }
     }
 }
